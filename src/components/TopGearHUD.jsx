@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 // 1. Barra Superior Fixa (Header HUD)
 export function TopGearHeader({
@@ -9,14 +9,14 @@ export function TopGearHeader({
   lapTime,
   bestLapTime,
   isMuted,
-  onToggleSound
+  onToggleSound,
 }) {
   const formatTime = (seconds) => {
-    if (!seconds || seconds <= 0) return '00:00.00';
+    if (!seconds || seconds <= 0) return "00:00.00";
     const m = Math.floor(seconds / 60);
     const s = Math.floor(seconds % 60);
     const ms = Math.floor((seconds % 1) * 100);
-    return `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}.${ms.toString().padStart(2, '0')}`;
+    return `${m.toString().padStart(2, "0")}:${s.toString().padStart(2, "0")}.${ms.toString().padStart(2, "0")}`;
   };
 
   return (
@@ -25,7 +25,9 @@ export function TopGearHeader({
       <div className="tg-header-card tg-rank-badge">
         <span className="tg-hdr-label">POSITION</span>
         <div className="tg-rank-value">
-          <span className="tg-rank-number">{rank.toString().padStart(2, '0')}</span>
+          <span className="tg-rank-number">
+            {rank.toString().padStart(2, "0")}
+          </span>
           <span className="tg-rank-total">/{totalRacers}</span>
         </div>
       </div>
@@ -34,19 +36,21 @@ export function TopGearHeader({
       <div className="tg-header-card">
         <span className="tg-hdr-label">LAP</span>
         <span className="tg-lap-number">
-          {lap > totalLaps ? 'FINISH' : `${lap} / ${totalLaps}`}
+          {lap > totalLaps ? "FINISH" : `${lap} / ${totalLaps}`}
         </span>
       </div>
 
       {/* Tempo da Volta Atual e Melhor Volta */}
       <div className="tg-header-card tg-time-card">
         <div className="tg-time-row">
-          <span className="tg-time-label">TIME:</span>
+          <span className="tg-time-label">LAP TIME:</span>
           <span className="tg-time-value">{formatTime(lapTime)}</span>
         </div>
         <div className="tg-time-row">
           <span className="tg-time-label">BEST:</span>
-          <span className="tg-time-best">{bestLapTime ? formatTime(bestLapTime) : '--:--.--'}</span>
+          <span className="tg-time-best">
+            {bestLapTime ? formatTime(bestLapTime) : "--:--.--"}
+          </span>
         </div>
       </div>
 
@@ -57,7 +61,7 @@ export function TopGearHeader({
         className="tg-sound-btn"
         title="Alternar Áudio"
       >
-        {isMuted ? '🔇 MUTE' : '🔊 SFX+BGM'}
+        {isMuted ? "🔇 MUTE" : "🔊 SFX+BGM"}
       </button>
     </div>
   );
@@ -71,7 +75,7 @@ export function TopGearCockpit({
   fuel,
   nitroCount,
   isNitroActive,
-  transmission
+  transmission,
 }) {
   const isLowFuel = fuel < 20;
 
@@ -88,12 +92,12 @@ export function TopGearCockpit({
           <span className="tg-rpm-text">RPM</span>
           <div className="tg-rpm-track">
             <div
-              className={`tg-rpm-fill ${rpm > 0.85 ? 'tg-redline' : ''}`}
+              className={`tg-rpm-fill ${rpm > 0.85 ? "tg-redline" : ""}`}
               style={{ width: `${Math.min(100, rpm * 100)}%` }}
             />
           </div>
           <span className="tg-gear-text">
-            {transmission === 'manual' ? `G-${gear}` : `A-${gear}`}
+            {transmission === "manual" ? `G-${gear}` : `A-${gear}`}
           </span>
         </div>
       </div>
@@ -108,8 +112,8 @@ export function TopGearCockpit({
             return (
               <div
                 key={i}
-                className={`tg-bottle ${available ? 'ready' : 'used'} ${active ? 'active-pulse' : ''}`}
-                title={available ? 'Nitro Pronto [SPACE]' : 'Esgotado'}
+                className={`tg-bottle ${available ? "ready" : "used"} ${active ? "active-pulse" : ""}`}
+                title={available ? "Nitro Pronto [SPACE]" : "Esgotado"}
               >
                 N₂O
               </div>
@@ -119,14 +123,16 @@ export function TopGearCockpit({
       </div>
 
       {/* Marcador de Combustível (FUEL) */}
-      <div className={`tg-cockpit-item tg-fuel-box ${isLowFuel ? 'tg-low-fuel-blink' : ''}`}>
+      <div
+        className={`tg-cockpit-item tg-fuel-box ${isLowFuel ? "tg-low-fuel-blink" : ""}`}
+      >
         <div className="tg-fuel-title-row">
           <span>⛽ FUEL</span>
           <span className="tg-fuel-percent">{Math.round(fuel)}%</span>
         </div>
         <div className="tg-fuel-track">
           <div
-            className={`tg-fuel-fill ${isLowFuel ? 'low' : ''}`}
+            className={`tg-fuel-fill ${isLowFuel ? "low" : ""}`}
             style={{ width: `${Math.max(0, Math.min(100, fuel))}%` }}
           />
         </div>
@@ -161,5 +167,5 @@ export function TopGearPitStopModal({ isPitStop, fuel }) {
 export default {
   TopGearHeader,
   TopGearCockpit,
-  TopGearPitStopModal
+  TopGearPitStopModal,
 };
