@@ -71,7 +71,7 @@ export function drawBackground(ctx, width, height, theme, skyOffset) {
 }
 
 // Desenhar Carro do Jogador (Visão Traseira Turbo Highway Fiel à Imagem)
-export function drawPlayerCar(ctx, width, height, carDef, speedPercent, steer, isNitro, isBraking) {
+export function drawPlayerCar(ctx, width, height, carDef, speedPercent, steer, roadCurve, isNitro, isBraking) {
   const carWidth = Math.round(width * 0.23);
   const carHeight = Math.round(carWidth * 0.64);
   const carX = width / 2;
@@ -81,7 +81,8 @@ export function drawPlayerCar(ctx, width, height, carDef, speedPercent, steer, i
   ctx.translate(carX, carY);
 
   // Inclinação nas curvas (Body roll dinâmico de arcade)
-  const roll = steer * 0.14;
+  const curveLean = Math.max(-1, Math.min(1, roadCurve / 1.8)) * speedPercent * 0.1;
+  const roll = steer * 0.14 + curveLean;
   ctx.rotate(roll);
 
   // Sombra suave sob o carro
